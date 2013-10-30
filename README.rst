@@ -1,5 +1,5 @@
-Groovy Transparent Image Neat Transformer
------------------------------------------
+GroovyTint
+----------
 
 groovyTint command
 ~~~~~~~~~~~~~~~~~~
