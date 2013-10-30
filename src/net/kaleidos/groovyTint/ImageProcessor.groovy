@@ -9,8 +9,8 @@ class ImageProcessor {
     protected Rectangle getCropRectangle(image, params) {
         int left = 0
         int top = 0
-        int originWidth = image.getDimension().width;
-        int originHeight = image.getDimension().height;
+        int originWidth = image.getDimension().width
+        int originHeight = image.getDimension().height
         int dstWidth = params.width
         int dstHeight = params.height
 
@@ -87,8 +87,8 @@ class ImageProcessor {
     }
 
     MagickImage fit(image, params) {
-        int originWidth = image.getDimension().width;
-        int originHeight = image.getDimension().height;
+        int originWidth = image.getDimension().width
+        int originHeight = image.getDimension().height
         int dstWidth = params.width
         int dstHeight = params.height
 
@@ -142,8 +142,8 @@ class ImageProcessor {
 
     MagickImage cornerPin(image, params) {
         MagickImage img = runCommand image, params, { src, dst ->
-            int width = image.getDimension().width;
-            int height = image.getDimension().height;
+            int width = image.getDimension().width
+            int height = image.getDimension().height
             def corners = "0,0,${params.left_top[0]},${params.left_top[1]}"
             corners += " 0,${height},${params.left_bottom[0]},${params.left_bottom[1]},"
             corners += " ${width},0,${params.right_top[0]},${params.right_top[1]}"

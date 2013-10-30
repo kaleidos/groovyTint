@@ -1,6 +1,6 @@
-#!/usr/bin/env groovy -cp /usr/lib/jmagick-6.4.0.jar:.
+#!/usr/bin/env groovy
 
-System.setProperty("jmagick.systemclassloader","false");
+System.setProperty("jmagick.systemclassloader","false")
 import magick.ImageInfo
 import magick.MagickImage
 import groovy.json.JsonSlurper
