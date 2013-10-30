@@ -15,7 +15,7 @@ And the transformations.json can be something like this:
 .. code-block:: javascript
 
   {
-    "transofrmation1": [
+    "transformation1": [
       {
         "action": 'fit',
         "width": 1024,
