@@ -1,0 +1,3 @@
+#!/bin/bash
+
+groovy -cp /usr/lib/jmagick-6.4.0.jar:src groovyTint.groovy $@

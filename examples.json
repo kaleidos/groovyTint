@@ -1,0 +1,67 @@
+{
+    "example1": [
+        {
+            "action": "circularCrop",
+            "width": 600,
+            "height": 600,
+            "valign":"middle",
+            "align":"center"
+        },
+        {"action": "grayscale"},
+        {"action": "flip"},
+        {"action": "mirror"},
+        {
+            "action": "scale",
+            "width":300,
+            "height": 300
+        }
+    ],
+    "example2": [
+        {
+            "action": "circularCrop",
+            "width": 600,
+            "height": 600,
+            "valign":"middle",
+            "align":"center"
+        }
+    ],
+    "example3": [
+        {
+            "action": "cornerPin",
+            "left_top": [50, 70],
+            "left_bottom": [40, 150],
+            "right_top": [150, 80],
+            "right_bottom": [160, 175]
+        },
+        {"action": "trim"},
+        {
+            "action":"rotate",
+            "degrees": 90
+        }
+    ],
+    "example4": [
+        {
+            "action": "crop",
+            "width": 600,
+            "height": 400,
+            "valign": "middle",
+            "align": "center"
+        },
+        {
+            "action": "fit",
+            "width": 100,
+            "height": 300,
+            "valign":"middle",
+            "align":"center"
+        }
+    ],
+    "example5": [
+        {
+            "action": "crop",
+            "width": 300,
+            "height": 600,
+            "valign":"middle",
+            "align":"center"
+        }
+    ]
+}
