@@ -1,6 +1,11 @@
 GroovyTint
 ----------
 
+Requirements
+~~~~~~~~~~~~
+
+To run groovyTint you need JMagick library and ImageMagick program installed.
+
 groovyTint command
 ~~~~~~~~~~~~~~~~~~
 
