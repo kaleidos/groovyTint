@@ -13,6 +13,7 @@ Usage example::
 And the transformations.json can be something like this:
 
 .. code-block:: javascript
+
   {
     "transofrmation1": [
       {
@@ -85,6 +86,7 @@ Transformations Object
 Example:
 
 .. code-block:: javascript
+
   [
     {
       "action": 'fit',
