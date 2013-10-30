@@ -10,8 +10,9 @@ Usage example::
 
   groovyTint input-image.png transformations.json transformation1 output-image.png
 
-And the transformations.json can be something like this::
+And the transformations.json can be something like this:
 
+.. code-block:: json
   {
     "transofrmation1": [
       {
@@ -81,8 +82,9 @@ list:
 Transformations Object
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Example::
+Example:
 
+.. code-block:: json
   [
     {
       "action": 'fit',
