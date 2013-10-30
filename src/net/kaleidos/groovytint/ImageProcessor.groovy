@@ -1,4 +1,4 @@
-package net.kaleidos.groovyTint
+package net.kaleidos.groovytint
 
 import magick.ImageInfo
 import magick.MagickImage
@@ -87,8 +87,8 @@ class ImageProcessor {
     }
 
     MagickImage fit(image, params) {
-        int originWidth = image.getDimension().width
-        int originHeight = image.getDimension().height
+        int originWidth = image.dimension.width
+        int originHeight = image.dimension.height
         int dstWidth = params.width
         int dstHeight = params.height
 
@@ -142,13 +142,14 @@ class ImageProcessor {
 
     MagickImage cornerPin(image, params) {
         MagickImage img = runCommand image, params, { src, dst ->
-            int width = image.getDimension().width
-            int height = image.getDimension().height
-            def corners = "0,0,${params.left_top[0]},${params.left_top[1]}"
-            corners += " 0,${height},${params.left_bottom[0]},${params.left_bottom[1]},"
-            corners += " ${width},0,${params.right_top[0]},${params.right_top[1]}"
-            corners += " ${width},${height},${params.right_bottom[0]},${params.right_bottom[1]}"
-            return ["convert", src, "-virtual-pixel", "transparent", "-distort", "Perspective", "${corners}", dst]
+            int width = image.dimension.width
+            int height = image.dimension.height
+            def corners = new StringBuilder()
+            corners << "0,0,${params.left_top[0]},${params.left_top[1]}"
+            corners << " 0,${height},${params.left_bottom[0]},${params.left_bottom[1]},"
+            corners << " ${width},0,${params.right_top[0]},${params.right_top[1]}"
+            corners << " ${width},${height},${params.right_bottom[0]},${params.right_bottom[1]}"
+            return ["convert", src, "-virtual-pixel", "transparent", "-distort", "Perspective", "${corners.toString()}", dst]
         }
         return img
     }

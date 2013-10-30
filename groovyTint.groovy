@@ -4,7 +4,7 @@ System.setProperty("jmagick.systemclassloader","false")
 import magick.ImageInfo
 import magick.MagickImage
 import groovy.json.JsonSlurper
-import net.kaleidos.groovyTint.ImageTransformer
+import net.kaleidos.groovytint.ImageTransformer
 
 if(this.args.length != 4){
     println "Usage: groovyTint <image_path> <json_path> <process_name> <output_path>"

@@ -1,6 +1,6 @@
-package net.kaleidos.groovyTint
+package net.kaleidos.groovytint
 
-import net.kaleidos.groovyTint.ImageProcessor
+import net.kaleidos.groovytint.ImageProcessor
 
 class ImageTransformer {
     ImageProcessor processor
