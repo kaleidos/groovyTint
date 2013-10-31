@@ -9,8 +9,8 @@ class ImageProcessor {
     protected Rectangle getCropRectangle(image, params) {
         int left = 0
         int top = 0
-        int originWidth = image.getDimension().width
-        int originHeight = image.getDimension().height
+        int originWidth = image.dimension.width
+        int originHeight = image.dimension.height
         int dstWidth = params.width
         int dstHeight = params.height
 
