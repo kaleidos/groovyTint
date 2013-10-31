@@ -1,5 +1,5 @@
 apply plugin: 'groovy'
-//apply plugin: 'codenarc'
+apply plugin: 'codenarc'
 
 /* Ensure source compatibility */
 sourceCompatibility=1.7
@@ -27,4 +27,10 @@ task "runWorker"(type: JavaExec){
 
     classpath = sourceSets.main.runtimeClasspath
     main = "net.kaleidos.groovytint.worker.GroovyTintWorker"
+}
+
+codenarc {
+    maxPriority1Violations = 1
+    maxPriority2Violations = 50
+    maxPriority3Violations = 150
 }

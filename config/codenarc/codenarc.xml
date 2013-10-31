@@ -55,6 +55,7 @@
     <ruleset-ref path="rulesets/size.xml"/>
     <ruleset-ref path="rulesets/unnecessary.xml">
         <exclude name="UnnecessaryPackageReference"/>
+        <exclude name="UnnecessaryReturnKeyword"/>
     </ruleset-ref>
     <ruleset-ref path="rulesets/unused.xml"/>
 

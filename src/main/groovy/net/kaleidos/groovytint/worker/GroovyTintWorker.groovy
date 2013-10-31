@@ -1,7 +1,7 @@
 package net.kaleidos.groovytint.worker
 
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.ConnectionFactory
+import com.rabbitmq.client.QueueingConsumer
 
 import magick.ImageInfo
 import magick.MagickImage
@@ -11,18 +11,18 @@ import net.kaleidos.groovytint.ImageTransformer
 import groovy.json.JsonSlurper
 
 class Worker {
-    private def conn
-    private def channel
-    private def config
-    private def consumer
-    private def processes
-    private def slurper = new JsonSlurper()
-    private def transformer
+    private final conn
+    private final channel
+    private final consumer
+    private final processes
+    private final slurper = new JsonSlurper()
+    private final transformer
+    private config
 
     Worker(config) {
         def factory = new ConnectionFactory()
-        factory.username = config.worker.rabbitMQ.get('username', 'guest')
-        factory.password = config.worker.rabbitMQ.get('password', 'guest')
+        factory.username = config.worker.rabbitMQ.get('username', 'quest')
+        factory.password = config.worker.rabbitMQ.get('password', 'quest')
         factory.virtualHost = config.worker.rabbitMQ.get('virtualHost', '/')
         factory.host = config.worker.rabbitMQ.get('host', 'localhost')
         factory.port = config.worker.rabbitMQ.get('port', 5672)
@@ -32,7 +32,7 @@ class Worker {
         channel = conn.createChannel()
 
         def queueName = config.worker.rabbitMQ.get('queue', 'groovyTint')
-        channel.queueDeclare(queueName, true, false, false, new HashMap())
+        channel.queueDeclare(queueName, true, false, false, [:])
 
         consumer = new QueueingConsumer(channel)
         channel.basicConsume(queueName, false, consumer)
@@ -54,25 +54,23 @@ class Worker {
     void mainLoop() {
         def delivery
         def msg
-        print "Message wait main loop"
+        print 'Message wait main loop'
         while (true) {
-            println "Wating message..."
+            println 'Wating message...'
             delivery = consumer.nextDelivery()
-            msg = slurper.parseText(new String(delivery.body, "UTF-8"))
+            msg = slurper.parseText(new String(delivery.body, 'UTF-8'))
             processMessage(msg)
             channel.basicAck(delivery.envelope.deliveryTag, false)
         }
     }
 
-    void finalize() {
+    protected void finalize() {
         channel.close()
         conn.close()
     }
 }
 
 static void main(String[] args) {
-    System.setProperty("jmagick.systemclassloader","false")
-
     config = new ConfigSlurper().parse(new File('groovyTintWorker.properties').toURL())
     def worker = new Worker(config)
     worker.mainLoop()

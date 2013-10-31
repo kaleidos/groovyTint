@@ -18,34 +18,34 @@ class ImageProcessor {
         String valign = params.valign
 
         if (originWidth >= dstWidth) {
-            switch(align) {
-                case "center":
-                    left = (originWidth/2)-(dstWidth/2)
+            switch (align) {
+                case 'center':
+                    left = (originWidth - dstWidth) / 2
                     break
-                case "left":
+                case 'left':
                     left = 0
                     break
-                case "right":
-                    left = originWidth-dstWidth
+                case 'right':
+                    left = originWidth - dstWidth
                     break
                 default:
-                    throw Exception('Invalid align')
+                    throw new Exception('Invalid align')
             }
         }
 
         if (originHeight >= dstHeight) {
-            switch(valign) {
-                case "middle":
-                    top = (originHeight/2)-(dstHeight/2)
+            switch (valign) {
+                case 'middle':
+                    top = (originHeight - dstHeight) / 2
                     break
-                case "top":
+                case 'top':
                     top = 0
                     break
-                case "bottom":
-                    top = originHeight-dstHeight
+                case 'bottom':
+                    top = originHeight - dstHeight
                     break
                 default:
-                    throw Exception('Invalid valign')
+                    throw new Exception('Invalid valign')
             }
         }
         return new Rectangle(left, top, dstWidth, dstHeight)
@@ -58,31 +58,31 @@ class ImageProcessor {
     MagickImage circularCrop(image, params) {
         Rectangle rectangle = getCropRectangle(image, params)
 
-        image = crop(image, params)
+        def img = crop(image, params)
 
-        MagickImage img = runCommand image, params, { src, dst ->
-
+        img = runCommand img, params, { src, dst ->
             return [
-                "convert",
+                'convert',
                 src,
-                "(",
-                "+clone",
-                "-threshold",
-                "-1",
-                "-negate",
-                "-fill",
-                "white",
-                "-draw",
-                "circle ${rectangle.width/2},${rectangle.height/2} ${rectangle.width/2},0",
-                ")",
-                "-alpha",
-                "off",
-                "-compose",
-                "copy_opacity",
-                "-composite",
+                '(',
+                '+clone',
+                '-threshold',
+                '-1',
+                '-negate',
+                '-fill',
+                'white',
+                '-draw',
+                "circle ${rectangle.width / 2},${rectangle.height / 2} ${rectangle.width / 2},0",
+                ')',
+                '-alpha',
+                'off',
+                '-compose',
+                'copy_opacity',
+                '-composite',
                 dst
             ]
         }
+
         return img
     }
 
@@ -91,13 +91,14 @@ class ImageProcessor {
         int originHeight = image.dimension.height
         int dstWidth = params.width
         int dstHeight = params.height
+        def img = image
 
         if (originWidth / dstWidth <= originHeight / dstHeight) {
-            image = image.scaleImage(dstWidth, (originHeight / (originWidth/dstWidth)).intValue())
+            img = img.scaleImage(dstWidth, (originHeight / (originWidth / dstWidth)).intValue())
         } else {
-            image = image.scaleImage((originWidth / (originHeight/dstHeight)).intValue(), dstHeight)
+            img = img.scaleImage((originWidth / (originHeight / dstHeight)).intValue(), dstHeight)
         }
-        return crop(image, params)
+        return crop(img, params)
     }
 
     MagickImage grayscale(image, params) {
@@ -149,14 +150,23 @@ class ImageProcessor {
             corners << " 0,${height},${params.left_bottom[0]},${params.left_bottom[1]},"
             corners << " ${width},0,${params.right_top[0]},${params.right_top[1]}"
             corners << " ${width},${height},${params.right_bottom[0]},${params.right_bottom[1]}"
-            return ["convert", src, "-virtual-pixel", "transparent", "-distort", "Perspective", "${corners.toString()}", dst]
+            return [
+                'convert',
+                src,
+                '-virtual-pixel',
+                'transparent',
+                '-distort',
+                'Perspective',
+                "${corners.toString()}",
+                dst
+            ]
         }
         return img
     }
 
     protected MagickImage runCommand(image, params, func) {
-        File tempOrigin = File.createTempFile("temp",".cornerpin.png")
-        File tempDst = File.createTempFile("temp",".cornerpinResult.png")
+        File tempOrigin = File.createTempFile('temp', '.cornerpin.png')
+        File tempDst = File.createTempFile('temp', '.cornerpinResult.png')
 
         ImageInfo ii = new ImageInfo(tempOrigin.absolutePath)
         image.setFileName(tempOrigin.absolutePath)
@@ -168,9 +178,9 @@ class ImageProcessor {
         proc.waitFor()
 
         ImageInfo iiDst = new ImageInfo(tempDst.absolutePath)
-        image = new MagickImage(iiDst)
+        def img = new MagickImage(iiDst)
 
-        return image
+        return img
     }
 
     MagickImage drawText(image, params) {
