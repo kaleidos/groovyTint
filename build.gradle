@@ -1,0 +1,30 @@
+apply plugin: 'groovy'
+//apply plugin: 'codenarc'
+
+/* Ensure source compatibility */
+sourceCompatibility=1.7
+targetCompatibility=1.7
+
+group = "net.kaleidos"
+version = "0.0.1"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.1.7'
+    compile 'jmagick:jmagick:6.6.9'
+    compile 'com.rabbitmq:amqp-client:3.1.4'
+    compile 'org.apache.ivy:ivy:2.2.0'
+    testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
+}
+
+task "runWorker"(type: JavaExec){
+    description = "Run the image processor worker"
+    group = "worker"
+
+    classpath = sourceSets.main.runtimeClasspath
+    main = "net.kaleidos.groovytint.worker.GroovyTintWorker"
+}

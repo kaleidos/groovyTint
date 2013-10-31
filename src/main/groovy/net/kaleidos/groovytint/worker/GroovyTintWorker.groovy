@@ -1,10 +1,8 @@
-System.setProperty("jmagick.systemclassloader","false")
+package net.kaleidos.groovytint.worker
 
-@Grab(group='com.rabbitmq', module='amqp-client', version='3.1.4')
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 
-@Grab(group='jmagick', module='jmagick', version='6.6.9')
 import magick.ImageInfo
 import magick.MagickImage
 
@@ -72,6 +70,10 @@ class Worker {
     }
 }
 
-config = new ConfigSlurper().parse(new File('groovyTintWorker.properties').toURL())
-def worker = new Worker(config)
-worker.mainLoop()
+static void main(String[] args) {
+    System.setProperty("jmagick.systemclassloader","false")
+
+    config = new ConfigSlurper().parse(new File('groovyTintWorker.properties').toURL())
+    def worker = new Worker(config)
+    worker.mainLoop()
+}
